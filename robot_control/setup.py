@@ -27,6 +27,7 @@ setup(
     entry_points={
         'console_scripts': [
             'motor_control = robot_control.motor_control:main',
+            'waypoint_controller = robot_control.waypoint_controller:main',
             'keyboard_control = robot_control.keyboard_control:main',
             'velocity_control = robot_control.velocity_control:main',
         ],

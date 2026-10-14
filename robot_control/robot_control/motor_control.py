@@ -222,7 +222,7 @@ class MotorControllerNode(Node):
         """process and publish IMU data"""
         try:
             # extract roll, pitch, yaw
-            # print(imu_data)
+            print(imu_data)
             roll = float(imu_data.get('r', 0))    # degrees
             pitch = float(imu_data.get('p', 0))   # degrees  
             yaw = float(imu_data.get('y', 0))     # degrees
@@ -241,9 +241,12 @@ class MotorControllerNode(Node):
             imu_msg.orientation.z = qz
             
             # angular velocity (rad/s) - convert from degrees/s if needed
-            imu_msg.angular_velocity.x = float(imu_data.get('gx', 0))  # roll rate
-            imu_msg.angular_velocity.y = float(imu_data.get('gy', 0))  # pitch rate  
-            imu_msg.angular_velocity.z = float(imu_data.get('gz', 0))  # yaw rate
+            # imu_msg.angular_velocity.x = float(imu_data.get('gx', 0))  # roll rate
+            # imu_msg.angular_velocity.y = float(imu_data.get('gy', 0))  # pitch rate  
+            # imu_msg.angular_velocity.z = float(imu_data.get('gz', 0))  # yaw rate
+            imu_msg.angular_velocity.x = math.radians(float(imu_data.get('gx', 0)))
+            imu_msg.angular_velocity.y = math.radians(float(imu_data.get('gy', 0)))
+            imu_msg.angular_velocity.z = math.radians(float(imu_data.get('gz', 0)))
             
             # linear acceleration (m/s^2) - convert from mg to m/s^2 if needed
             imu_msg.linear_acceleration.x = float(imu_data.get('ax', 0)) * 9.81 / 1000.0
